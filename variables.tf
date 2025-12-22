@@ -1,6 +1,6 @@
 variable "application_name" {}
 variable "jnv_project" {
-  default = "mp"
+  default = "zzl"
 }
 variable "jnv_region" {
   default = "apne2"
