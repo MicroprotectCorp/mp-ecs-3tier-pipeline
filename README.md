@@ -1,4 +1,4 @@
-# JNV_ECS_3TIER_PIPELINE
+# MP_ECS_3TIER_PIPELINE
 
 ## Description
 
@@ -7,9 +7,9 @@
 ## Example
 
 ```
-module "jnv_ecs_3tier_pipeline" {
-  source                   = "git::https://github.com/JeonghwanSa/jnv-ecs-3tier-pipeline.git"
-  application_name         = "jobis-example"
+module "mp_ecs_3tier_pipeline" {
+  source                   = "git::https://github.com/MicroprotectCorp/mp-ecs-3tier-pipeline.git"
+  application_name         = "mp-example"
   pipeline_branch          = "dev"
   build_image              = "1234456789000.dkr.ecr.ap-northeast-2.amazonaws.com/buildimage:latest"
   buildspec_name           = "buildspec.yml"
@@ -26,7 +26,7 @@ module "jnv_ecs_3tier_pipeline" {
   ecs_cluster_name         = "cluster_name"
   ecs_service_name         = "service_name"
   github_connection_arn    = "arn:aws:codestar-connections:ap-northeast-2:111122223333:connection/1234abcd-5678-efgh-9000-ijkl0000mnop"
-  github_fullrepository_id = "jobisnvillains/szs-jobis-example-tf"
+  github_fullrepository_id = "MicroprotectCorp/example"
 }
 ```
 
