@@ -4,9 +4,9 @@ locals {
 }
 
 resource "aws_s3_bucket" "codepipeline_bucket" {
-  bucket = join("-", ["${var.jnv_project}", "${var.jnv_region}", lower("${var.application_name}"), "pipeline-artifact", "${var.jnv_environment}"])
+  bucket = join("-", ["${var.mp_project}", "${var.mp_region}", lower("${var.application_name}"), "pipeline-artifact", "${var.mp_environment}"])
   tags = {
-    Name = join("-", ["${var.jnv_project}", "${var.jnv_region}", lower("${var.application_name}"), "pipeline-artifact", "${var.jnv_environment}"])
+    Name = join("-", ["${var.mp_project}", "${var.mp_region}", lower("${var.application_name}"), "pipeline-artifact", "${var.mp_environment}"])
   }
 }
 
@@ -55,7 +55,7 @@ resource "aws_s3_bucket_public_access_block" "publicaccess_block" {
 }
 
 resource "aws_iam_role" "codepipeline_role" {
-  name = join("-", ["${var.jnv_project}", "${var.jnv_region}", "${var.application_name}", "pipeline-service-role", "${var.jnv_environment}"])
+  name = join("-", ["${var.mp_project}", "${var.mp_region}", "${var.application_name}", "pipeline-service-role", "${var.mp_environment}"])
 
   assume_role_policy = <<EOF
 {
@@ -154,8 +154,8 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
   })
 }
 
-resource "aws_codepipeline" "jnv-ecs-3tier-pipeline" {
-  name          = join("-", ["${var.jnv_project}", "${var.jnv_region}", "${var.application_name}", "pipeline", "${var.jnv_environment}"])
+resource "aws_codepipeline" "mp-ecs-3tier-pipeline" {
+  name          = join("-", ["${var.mp_project}", "${var.mp_region}", "${var.application_name}", "pipeline", "${var.mp_environment}"])
   pipeline_type = var.pipeline_type
   role_arn      = aws_iam_role.codepipeline_role.arn
   artifact_store {
@@ -321,7 +321,7 @@ resource "aws_codepipeline" "jnv-ecs-3tier-pipeline" {
 }
 
 resource "aws_iam_role" "codebuild" {
-  name               = join("-", ["${var.jnv_project}", "${var.jnv_region}", "${var.application_name}", "cb-service-role", "${var.jnv_environment}"])
+  name               = join("-", ["${var.mp_project}", "${var.mp_region}", "${var.application_name}", "cb-service-role", "${var.mp_environment}"])
   assume_role_policy = <<EOF
 {
   "Version": "2012-10-17",
@@ -418,7 +418,7 @@ resource "aws_iam_role_policy" "codebuild_policy" {
 resource "aws_codebuild_project" "codebuild_project" {
   badge_enabled  = false
   build_timeout  = 60
-  name           = join("-", ["${var.jnv_project}", "${var.jnv_region}", "${var.application_name}", "cb", "${var.jnv_environment}"])
+  name           = join("-", ["${var.mp_project}", "${var.mp_region}", "${var.application_name}", "cb", "${var.mp_environment}"])
   queued_timeout = 480
   service_role   = aws_iam_role.codebuild.arn
   artifacts {
@@ -501,8 +501,8 @@ resource "aws_codebuild_project" "codebuild_project" {
 #     "codepipeline-pipeline-action-execution-started",
 #     "codepipeline-pipeline-action-execution-succeeded"
 #   ]
-#   name     = join("-", ["${var.jnv_project}", "${var.jnv_region}", "${var.application_name}", "ecs-pipeline-alarm", "${var.jnv_environment}"])
-#   resource = aws_codepipeline.jnv-ecs-3tier-pipeline.arn
+#   name     = join("-", ["${var.mp_project}", "${var.mp_region}", "${var.application_name}", "ecs-pipeline-alarm", "${var.mp_environment}"])
+#   resource = aws_codepipeline.mp-ecs-3tier-pipeline.arn
 #   status   = "ENABLED"
 #   tags     = {}
 #   tags_all = {}
