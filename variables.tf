@@ -1,11 +1,11 @@
 variable "application_name" {}
-variable "jnv_project" {
+variable "mp_project" {
   default = "zzl"
 }
-variable "jnv_region" {
+variable "mp_region" {
   default = "apne2"
 }
-variable "jnv_environment" {
+variable "mp_environment" {
   default = "dev"
 }
 variable "pipeline_branch" {}
