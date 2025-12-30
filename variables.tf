@@ -53,7 +53,7 @@ variable "ecs_deploy_taskdef_filename" {
   default = "taskdef.json"
 }
 variable "appspec_name" {
-  default = "appspec.yml"
+  default = "appspec.yaml"
 }
 variable "ecs_is_bluegreen" {
   type    = bool
