@@ -26,13 +26,13 @@ variable "buildspec_name" {
   default = "buildspec.yaml"
 }
 variable "codebuild_vpc_id" {
-  default = "vpc-06e254347e7bdbc40"
+  default = "vpc-0b359cce648812a01"
 }
 variable "codebuild_vpc_subnets" {
-  default = ["subnet-03dce5558067b25aa", "subnet-0700b796f53811510"]
+  default = ["subnet-05060cddc1856fd3e", "subnet-0fefc834c9152eab3"]
 }
 variable "codebuild_vpc_sg" {
-  default = ["sg-08c45cad807411ebd"]
+  default = ["sg-04edef1bedb171c8a"]
 }
 variable "codebuild_environment_variables" {
   default = []
