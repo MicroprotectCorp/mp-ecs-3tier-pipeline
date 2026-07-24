@@ -423,8 +423,8 @@ resource "aws_codebuild_project" "codebuild_project" {
   service_role   = aws_iam_role.codebuild.arn
   artifacts {
     encryption_disabled    = false
-    name                   = var.application_name
-    override_artifact_name = true
+    name                   = coalesce(var.codebuild_artifact_name, var.application_name)
+    override_artifact_name = var.codebuild_override_artifact_name
     packaging              = "NONE"
     type                   = "CODEPIPELINE"
   }
