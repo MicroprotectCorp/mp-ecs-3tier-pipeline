@@ -25,6 +25,14 @@ variable "build_privileged_mode" {
 variable "buildspec_name" {
   default = "buildspec.yaml"
 }
+variable "codebuild_artifact_name" {
+  type    = string
+  default = null
+}
+variable "codebuild_override_artifact_name" {
+  type    = bool
+  default = true
+}
 variable "codebuild_vpc_id" {
   default = "vpc-0b359cce648812a01"
 }
