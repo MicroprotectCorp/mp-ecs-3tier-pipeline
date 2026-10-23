@@ -144,3 +144,9 @@ variable "build_approval_timeout_in_minutes" {
   type        = number
   default     = null
 }
+
+variable "codeartifact_read" {
+  description = "CodeBuild 역할에 CodeArtifact(mp-code-artifact, mp-common-* 저장소) 읽기 권한을 붙인다"
+  type        = bool
+  default     = false
+}
