@@ -415,6 +415,40 @@ resource "aws_iam_role_policy" "codebuild_policy" {
   })
 }
 
+# CodeArtifact 는 서울 리전이 없어 도쿄 도메인을 쓴다
+resource "aws_iam_role_policy" "codeartifact_read" {
+  count = var.codeartifact_read ? 1 : 0
+  name  = "codeartifact-read"
+  role  = aws_iam_role.codebuild.id
+
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect   = "Allow",
+        Action   = ["codeartifact:GetAuthorizationToken"],
+        Resource = "arn:aws:codeartifact:ap-northeast-1:${local.account_id}:domain/mp-code-artifact"
+      },
+      {
+        Effect   = "Allow",
+        Action   = ["sts:GetServiceBearerToken"],
+        Resource = "*",
+        Condition = {
+          StringEquals = { "sts:AWSServiceName" = "codeartifact.amazonaws.com" }
+        }
+      },
+      {
+        Effect = "Allow",
+        Action = [
+          "codeartifact:GetRepositoryEndpoint",
+          "codeartifact:ReadFromRepository"
+        ],
+        Resource = "arn:aws:codeartifact:ap-northeast-1:${local.account_id}:repository/mp-code-artifact/mp-common-*"
+      }
+    ]
+  })
+}
+
 resource "aws_codebuild_project" "codebuild_project" {
   badge_enabled  = false
   build_timeout  = 60
